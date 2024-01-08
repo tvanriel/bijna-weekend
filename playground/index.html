@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                <title></title>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+        </head>
+        <body>
+                <div>
+                        <input type="number" step="0.1" id="tagline_x" placeholder="Tagline X"/>
+                        <input type="number" step="0.1" id="tagline_y" placeholder="Tagline Y"/>
+                        <input type="text" id="text" placeholder="Text"/>
+                        <input type="text" id="font" placeholder="Font"/>
+                        <hr>
+                        <input type="number" step="0.1" id="mascotte_x" placeholder="Mascotte X">
+                        <input type="number" step="0.1" id="mascotte_y" placeholder="Mascotte Y">
+                        <input type="text" id="image" placeholder="Mascotte file">
+
+                        <button id="submit">
+                                Submit
+                        </button>
+                </div>
+                        <img id="output" src="localhost">
+        
+        </body>
+        <script type="application/javascript">
+
+function e(q) {
+	if (q.length === 0) return null;
+	let q1 = q.substr(1);
+	switch(q[0]) {
+		case "#":
+			return document.getElementById(q1);
+		case '.':
+			return document.getElementsByClassName(q1);
+		default:
+			return document.querySelectorAll(q1);
+	}
+}
+
+const submit = e("#submit");
+submit.addEventListener("click", function() {
+        const tagLineX = e("#tagline_x").value
+        const tagLineY = e("#tagline_y").value
+        const text = e("#text").value
+        const font = e("#font").value
+
+        const mascotteX = e("#mascotte_x").value
+        const mascotteY = e("#mascotte_y").value
+        const image = e("#image").value
+
+        const url = new URL("/image", location.origin);
+        url.searchParams.set("tagline_x", tagLineX)
+        url.searchParams.set("tagline_y", tagLineY)
+        url.searchParams.set("text", text)
+        url.searchParams.set("font", font)
+
+        url.searchParams.set("mascotte_x", mascotteX)
+        url.searchParams.set("mascotte_y", mascotteY)
+        url.searchParams.set("image", image)
+
+        e("#output").setAttribute("src", url.toString())
+})
+
+        </script>
+</html>
